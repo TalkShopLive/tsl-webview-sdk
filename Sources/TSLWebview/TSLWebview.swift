@@ -18,27 +18,7 @@ public struct TSLWebview: View {
         HStack {
             Spacer()
  
-            ForEach(menuItems.indices) { index in
- 
-                if index == selectedIndex {
-                    Text(menuItems[index])
-                        .padding(.horizontal)
-                        .padding(.vertical, 4)
-                        .background(Capsule().foregroundColor(Color.purple))
-                        .foregroundColor(.white)
-                        .matchedGeometryEffect(id: "menuItem", in: menuItemTransition)
-                } else {
-                    Text(menuItems[index])
-                        .padding(.horizontal)
-                        .padding(.vertical, 4)
-                        .background(Capsule().foregroundColor(Color( red: 244, green: 244, blue: 244)))
-                        .onTapGesture {
-                            selectedIndex = index
-                        }
-                }
- 
-                Spacer()
-            }
+            Text("Dev Mode").padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)).fontWeight(.bold)
  
         }
         .frame(minWidth: 0, maxWidth: .infinity)
