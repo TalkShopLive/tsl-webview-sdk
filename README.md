@@ -2,7 +2,7 @@
 
 TalkShopLive Embed Player SDK
 
-TSLWebview sdk is thin wrapper around embed player webview.
+TSLWebview sdk is a thin wrapper around embed player webview.
 
 ## Usage:
 ```
