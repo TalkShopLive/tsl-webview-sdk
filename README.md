@@ -1,3 +1,3 @@
 # TSLWebview
 
-A description of this package.
+TalkShopLive Embed Player SDK
