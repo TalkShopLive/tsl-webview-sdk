@@ -21,7 +21,18 @@ struct Webview: UIViewControllerRepresentable {
 }
 
 class WebviewController: UIViewController, WKNavigationDelegate {
-    lazy var webview: WKWebView = WKWebView()
+    lazy var webviewConfiguration: WKWebViewConfiguration = {
+            let configuration = WKWebViewConfiguration()
+            configuration.allowsInlineMediaPlayback = true
+            return configuration
+        }()
+    lazy var webview: WKWebView = {
+            let webView = WKWebView(frame: .zero, configuration: webviewConfiguration)
+            webView.uiDelegate = self
+            webView.navigationDelegate = self
+            webView.allowsBackForwardNavigationGestures = true
+            return webView
+        }()
     lazy var progressbar: UIProgressView = UIProgressView()
 
     deinit {
@@ -137,19 +148,31 @@ extension WebviewController: WKUIDelegate {
 @available(iOS 16, macOS 11.0, *)
 public struct TSLWebview: View {
     @Binding var showID: String
-    @Binding var theme: String
-    @Binding var autoPlay: Bool
+    @Binding var theme: String?
+    @Binding var autoPlay: Bool?
+    @Binding var expandChat: Bool?
+    @Binding var hideChat: Bool?
+    @Binding var singleVariantButtonText: String?
+    @Binding var singleVariantButtonIcon: String?
+    @Binding var multipleVariantButtonText: String?
+    
 
-    public init(showID: Binding<String>, theme: Binding<String>, autoPlay: Binding<Bool>) {
+    public init(showID: Binding<String>, theme: Binding<String?> = .constant("light"), autoPlay: Binding<Bool?> = .constant(nil), expandChat: Binding<Bool?> = .constant(nil), hideChat: Binding<Bool?> = .constant(nil), singleVariantButtonText: Binding<String?> = .constant(nil), singleVariantButtonIcon: Binding<String?> = .constant(nil), multipleVariantButtonText: Binding<String?> = .constant(nil)) {
         self._showID = showID
         self._theme = theme
         self._autoPlay = autoPlay
+        self._expandChat = expandChat
+        self._hideChat = hideChat
+        self._singleVariantButtonText = singleVariantButtonText
+        self._singleVariantButtonIcon = singleVariantButtonIcon
+        self._multipleVariantButtonText = multipleVariantButtonText
     }
 
     public var body: some View {
-        let fullURL = "\(EMBED_URL)\(self.showID.isEmpty ? "JyC00f6tVJv0" : self.showID)&theme=\(self.theme)&autoplay=\(self.autoPlay ? 1 : 0)"
+        let fullURL = "\(EMBED_URL)\(showID)&theme=\(theme ?? "light")&autoplay=\(autoPlay ?? false ? 1 : 0)&view=\(expandChat ?? false ? "chat" : "default")&hideChat=\(hideChat ?? false ? 1 : 0)&singleVariantButtonText=\(singleVariantButtonText ?? "Buy")&singleVariantButtonIcon=\(singleVariantButtonIcon ?? "" )&multipleVariantButtonText\(multipleVariantButtonText ?? "Buy")"
+        
         return (
-            Webview(url: URL(string:fullURL)!)
+            Webview(url: URL(string: fullURL)!)
         )
     }
 }
