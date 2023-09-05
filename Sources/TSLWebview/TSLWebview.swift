@@ -79,7 +79,6 @@ class WebviewController: UIViewController, WKNavigationDelegate {
             // Allows opening in the webview
             decisionHandler(.allow)
         } else if (redirectURL.absoluteString.starts(with: "https://talkshop.live") ||
-                   redirectURL.absoluteString.starts(with: "https://dev-tvbdhuyxega.talkshop.live") ||
                    redirectURL.absoluteString.starts(with: "https://publish.talkshop.live") ||
                    redirectURL.absoluteString.starts(with: "https://support.talkshop.live") ||
                    redirectURL.absoluteString.starts(with: "https://www.facebook.com") ||
