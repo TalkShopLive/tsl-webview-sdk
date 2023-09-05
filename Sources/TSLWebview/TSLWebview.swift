@@ -154,9 +154,9 @@ public struct TSLWebview: View {
     @Binding var singleVariantButtonText: String?
     @Binding var singleVariantButtonIcon: String?
     @Binding var multipleVariantButtonText: String?
-    
+    @Binding var dnt: Bool?
 
-    public init(showID: Binding<String>, theme: Binding<String?> = .constant("light"), autoPlay: Binding<Bool?> = .constant(nil), expandChat: Binding<Bool?> = .constant(nil), hideChat: Binding<Bool?> = .constant(nil), singleVariantButtonText: Binding<String?> = .constant(nil), singleVariantButtonIcon: Binding<String?> = .constant(nil), multipleVariantButtonText: Binding<String?> = .constant(nil)) {
+    public init(showID: Binding<String>, theme: Binding<String?> = .constant("light"), autoPlay: Binding<Bool?> = .constant(nil), expandChat: Binding<Bool?> = .constant(nil), hideChat: Binding<Bool?> = .constant(nil), singleVariantButtonText: Binding<String?> = .constant(nil), singleVariantButtonIcon: Binding<String?> = .constant(nil), multipleVariantButtonText: Binding<String?> = .constant(nil), dnt: Binding<Bool?> = .constant(nil)) {
         self._showID = showID
         self._theme = theme
         self._autoPlay = autoPlay
@@ -165,10 +165,11 @@ public struct TSLWebview: View {
         self._singleVariantButtonText = singleVariantButtonText
         self._singleVariantButtonIcon = singleVariantButtonIcon
         self._multipleVariantButtonText = multipleVariantButtonText
+        self._dnt = dnt
     }
 
     public var body: some View {
-        let fullURL = "\(EMBED_URL)\(showID)&theme=\(theme ?? "light")&autoplay=\(autoPlay ?? false ? 1 : 0)&view=\(expandChat ?? false ? "chat" : "default")&hideChat=\(hideChat ?? false ? 1 : 0)&singleVariantButtonText=\(singleVariantButtonText ?? "Buy")&singleVariantButtonIcon=\(singleVariantButtonIcon ?? "" )&multipleVariantButtonText\(multipleVariantButtonText ?? "Buy")"
+        let fullURL = "\(EMBED_URL)\(showID)&theme=\(theme ?? "light")&autoplay=\(autoPlay ?? false ? 1 : 0)&view=\(expandChat ?? false ? "chat" : "default")&hideChat=\(hideChat ?? false ? 1 : 0)&singleVariantButtonText=\(singleVariantButtonText ?? "Buy")&singleVariantButtonIcon=\(singleVariantButtonIcon ?? "" )&multipleVariantButtonText=\(multipleVariantButtonText ?? "Buy")&dnt=\(dnt ?? false ? 1 : 0)"
         
         return (
             Webview(url: URL(string: fullURL)!)
